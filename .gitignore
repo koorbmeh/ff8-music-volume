@@ -1,0 +1,17 @@
+# Never commit game audio or local machine state
+*.dls
+*.wav
+_FF8Tools-backup/
+gamepath.txt
+
+# Python
+__pycache__/
+*.pyc
+
+# Dev-only notes (not part of the released tool)
+SPEC.md
+REPO-README-DRAFT.md
+
+# OS cruft
+.DS_Store
+Thumbs.db
