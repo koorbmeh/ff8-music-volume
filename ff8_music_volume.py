@@ -127,17 +127,31 @@ def is_game(d):
 
 def _remember(d):
     try:
-        with open(PATHFILE, "w") as fh:
+        with open(PATHFILE, "w", encoding="utf-8") as fh:
             fh.write(d)
     except OSError:
         pass
 
 
+def _saved_game():
+    """The saved game folder, or None. Written as UTF-8 since 2026-09-28; a file an older version wrote in the
+    Windows ANSI code page (a folder name with an accent, say) is read that way instead, and find_game rewrites
+    it as UTF-8 once it proves to be the game folder. Anything unreadable counts as no saved folder."""
+    try:
+        with open(PATHFILE, "rb") as fh:
+            raw = fh.read()
+    except OSError:
+        return None
+    for enc in ("utf-8-sig", "mbcs"):   # utf-8-sig: a file re-saved by Notepad may start with a byte-order mark
+        try:
+            return raw.decode(enc).strip() or None
+        except (UnicodeDecodeError, LookupError):
+            continue
+    return None
+
+
 def find_game(cli):
-    saved = None
-    if os.path.isfile(PATHFILE):
-        with open(PATHFILE) as fh:
-            saved = fh.read().strip()
+    saved = _saved_game()
     for cand in (cli, saved, DEFAULT_GAME):
         if is_game(cand):
             _remember(cand)
