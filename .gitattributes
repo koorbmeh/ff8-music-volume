@@ -1,4 +1,6 @@
-# These projects are written with LF endings (Claude's writers use newline="
-") and the
-# Projects root is Drive-synced to both laptops, so a checkout must not rewrite them as CRLF.
+# Every file in this project is written with LF endings, and the Projects root is
+# Drive-synced to both laptops, so a checkout must not rewrite the tree as CRLF.
+# (git on this machine had core.autocrlf=true; .gitattributes travels with the repo.)
 * text=auto eol=lf
+# A Windows batch file keeps CRLF (the same rule life-rpg uses).
+*.bat text eol=crlf
