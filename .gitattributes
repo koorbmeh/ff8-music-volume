@@ -1,0 +1,4 @@
+# These projects are written with LF endings (Claude's writers use newline="
+") and the
+# Projects root is Drive-synced to both laptops, so a checkout must not rewrite them as CRLF.
+* text=auto eol=lf
